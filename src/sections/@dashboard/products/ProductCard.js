@@ -1,9 +1,12 @@
+// eslint-disable
+import * as React from 'react';
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
+import { Box, Card, Link, Typography, Stack, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 // utils
-import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Label from '../../../components/label';
 import { ColorPreview } from '../../../components/color-utils';
@@ -20,12 +23,57 @@ const StyledProductImg = styled('img')({
 
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+const Alert = React.forwardRef((props, ref) => <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />);
+
 ShopProductCard.propTypes = {
   product: PropTypes.object,
 };
 
+function CustomizedSnackbars() {
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  return (
+    <Stack spacing={2} sx={{ width: '100%' }}>
+      <Button
+        variant="contained"
+        style={{ backgroundColor: '#AF69EE', color: '#FFFFFF' }}
+        onClick={handleClick({
+          vertical: 'bottom',
+          horizontal: 'right',
+        })}
+      >
+        Share
+      </Button>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message="Link Copied"
+        key={vertical + horizontal}
+      />
+    </Stack>
+  );
+}
+
 export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+  const { name, cover, colors, status } = product;
 
   return (
     <Card>
@@ -58,18 +106,7 @@ export default function ShopProductCard({ product }) {
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <ColorPreview colors={colors} />
           <Typography variant="subtitle1">
-            <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: 'text.disabled',
-                textDecoration: 'line-through',
-              }}
-            >
-              {priceSale && fCurrency(priceSale)}
-            </Typography>
-            &nbsp;
-            {fCurrency(price)}
+            <CustomizedSnackbars />
           </Typography>
         </Stack>
       </Stack>
