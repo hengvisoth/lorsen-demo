@@ -7,6 +7,8 @@
   "homepage": "http://Ritheavuth.github.io/lorsen-demo",
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -14,9 +16,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx ./src",
     "clear-all": "rm -rf build node_modules",
     "re-start": "rm -rf build node_modules && yarn install && yarn start",
-    "re-build": "rm -rf build node_modules && yarn install && yarn build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "re-build": "rm -rf build node_modules && yarn install && yarn build"
   },
   "eslintConfig": {
     "extends": [
