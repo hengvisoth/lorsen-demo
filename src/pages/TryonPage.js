@@ -4,10 +4,8 @@ import { styled } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+const StyledContent = styled('div')(() => ({
   margin: 'auto',
-  minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
@@ -23,7 +21,7 @@ export default function TryonPage() {
       </Helmet>
 
       <StyledContent>
-        <video autoPlay muted>
+        <video style={{width:"100%", height:"100vh", objectFit: "fill"}} autoPlay muted>
           <source src="/assets/videos/demo.mp4" type="video/mp4" />
         </video>
       </StyledContent>
