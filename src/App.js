@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 // routes
 import Router from './routes';
@@ -13,13 +13,13 @@ import ScrollToTop from './components/scroll-to-top';
 export default function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HashRouter>
         <ThemeProvider>
           <ScrollToTop />
           <StyledChart />
           <Router />
         </ThemeProvider>
-      </BrowserRouter>
+      </HashRouter>
     </HelmetProvider>
   );
 }
